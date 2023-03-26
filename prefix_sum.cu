@@ -10,7 +10,7 @@ void show(int32_t* line, ssize_t n)
 
 int main(int argc, char** argv)
 {
-	int32_t input[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+	int32_t input[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	int32_t output[10] = {0};
 
 	memset(output, 0, sizeof(output));
