@@ -1,0 +1,8 @@
+/.vscode
+/.idea
+
+*.exe
+.deps
+.depend
+*.o
+.objs
