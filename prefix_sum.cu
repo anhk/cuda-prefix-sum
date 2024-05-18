@@ -25,5 +25,11 @@ int main(int argc, char** argv)
 	show(input, 10);
 	show(output, 10);
 
+	printf("----------------------------------------\n");
+
+	memset(output, 0, sizeof(output));
+	prefix_by_cuda_unified(input, 10, output);
+	show(input, 10);
+	show(output, 10);
 	return 0;
 }

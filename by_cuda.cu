@@ -88,3 +88,30 @@ void prefix_by_cuda(int32_t* input, ssize_t n, int32_t* output)
 	cudaFree(indev);
 	cudaFree(outdev);
 }
+
+void prefix_by_cuda_unified(int32_t* input, ssize_t n, int32_t* output)
+{
+
+	int32_t *indev, *outdev;
+	uint32_t power = power_of_2(n);
+
+	printf("power=%u\n", power);
+	cudaMallocManaged(&indev, sizeof(int32_t) * power);
+	cudaMallocManaged(&outdev, sizeof(int32_t) * n);
+
+	for (int i = 0; i < n; i++) {
+		indev[i] = input[i];
+	}
+
+	cudaMemset(indev + n, 0, power - n);
+
+	work_efficient_scan_kernel<<<64, 64>>>(indev, power, outdev);
+	cudaDeviceSynchronize();
+
+	for (int i = 0; i < n; i++) {
+		output[i] = outdev[i];
+	}
+
+	cudaFree(indev);
+	cudaFree(outdev);
+}
